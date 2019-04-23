@@ -7,6 +7,8 @@ public class App {
 
     private static final Logger log = LoggerFactory.getLogger(App.class);
 
+    private String test;
+
     public static void main(String args[]) {
 
         log.debug("hello");
