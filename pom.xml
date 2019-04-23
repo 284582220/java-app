@@ -38,10 +38,10 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <!--<build>
         <pluginManagement>
             <plugins>
-                <!-- 打包插件 -->
+                &lt;!&ndash; 打包插件 &ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -61,7 +61,7 @@
                     </configuration>
                 </plugin>
 
-                <!-- 编译插件 -->
+                &lt;!&ndash; 编译插件 &ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -72,7 +72,7 @@
                     </configuration>
                 </plugin>
 
-                <!--依赖管理插件-->
+                &lt;!&ndash;依赖管理插件&ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
@@ -92,7 +92,7 @@
                 </plugin>
 
 
-                <!-- 单元测试插件 -->
+                &lt;!&ndash; 单元测试插件 &ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -103,7 +103,7 @@
                     </configuration>
                 </plugin>
 
-                <!-- 源码插件 发布时自动将源码同时发布 -->
+                &lt;!&ndash; 源码插件 发布时自动将源码同时发布 &ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
@@ -118,7 +118,7 @@
                     </executions>
                 </plugin>
 
-                <!--ant插件-->
+                &lt;!&ndash;ant插件&ndash;&gt;
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
@@ -146,7 +146,7 @@
                 <targetPath>${project.build.testOutputDirectory}</targetPath>
                 <filtering>false</filtering>
             </resource>
-            <!-- 将指定配置文件copy到config目录，通常是那些可以在jar包外部修改的文件 -->
+            &lt;!&ndash; 将指定配置文件copy到config目录，通常是那些可以在jar包外部修改的文件 &ndash;&gt;
             <resource>
                 <directory>src/main/resources</directory>
                 <targetPath>${project.build.directory}/${project.artifactId}/config</targetPath>
@@ -156,25 +156,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!--  可选配置  -->
+                &lt;!&ndash;  可选配置  &ndash;&gt;
                 <configuration>
                     <source>1.8</source>
-                    <!--  源代码使用的JDK版本  -->
+                    &lt;!&ndash;  源代码使用的JDK版本  &ndash;&gt;
                     <target>1.8</target>
-                    <!--  生成的目标class文件的JDK编译版本  -->
+                    &lt;!&ndash;  生成的目标class文件的JDK编译版本  &ndash;&gt;
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <!-- 排除不需要打进jar包的文件，也就是上面config目录中的文件 -->
+                    &lt;!&ndash; 排除不需要打进jar包的文件，也就是上面config目录中的文件 &ndash;&gt;
                     <excludes>
                         <include>logback.xml</include>
                         <include>system-config.properties</include>
                     </excludes>
                     <archive>
-                        <!-- 程序入口，即main函数 -->
+                        &lt;!&ndash; 程序入口，即main函数 &ndash;&gt;
                         <manifest>
                             <mainClass>com.yangguojun.App</mainClass>
                         </manifest>
@@ -188,6 +188,31 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.yangguojun.App</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
